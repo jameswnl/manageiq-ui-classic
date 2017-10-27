@@ -3,6 +3,9 @@ ManageIQ.angular.app.controller('emsCommonFormController', ['$http', '$scope', '
     $scope.emsCommonModel = {
       name: '',
       emstype: '',
+      config_fields: {
+        dummy_provider: ['tenant_id', 'subscription_id', 'project_id']
+      },
       openstack_infra_providers_exist: false,
       provider_id: '',
       zone: '',
@@ -98,7 +101,7 @@ ManageIQ.angular.app.controller('emsCommonFormController', ['$http', '$scope', '
 
     function getEmsFormIdDataComplete(response) {
       var data = response.data;
-
+      // $scope.emsCommonModel.config_fields                   = data.config_fields;
       $scope.emsCommonModel.name                            = data.name;
       $scope.emsCommonModel.emstype                         = data.emstype;
       $scope.emsCommonModel.zone                            = data.zone;
@@ -191,7 +194,7 @@ ManageIQ.angular.app.controller('emsCommonFormController', ['$http', '$scope', '
 
     function getNewEmsFormDataComplete(response) {
       var data = response.data;
-
+      // $scope.emsCommonModel.config_fields                   = data.config_fields;
       $scope.emsCommonModel.emstype                         = '';
       $scope.emsCommonModel.zone                            = data.zone;
       $scope.emsCommonModel.tenant_mapping_enabled          = data.tenant_mapping_enabled;
@@ -388,6 +391,8 @@ ManageIQ.angular.app.controller('emsCommonFormController', ['$http', '$scope', '
   };
 
   $scope.providerTypeChanged = function() {
+    var emstype = $scope.emsCommonModel.emstyp;
+    var temp = ($scope.emsCommonModel.config_fields[emstype] || []).indexOf('subscription_id')
     $scope.updateProviderOptionsDescription();
     if ($scope.emsCommonModel.ems_controller === 'ems_container') {
       if ($scope.emsCommonModel.emstype === 'kubernetes') {

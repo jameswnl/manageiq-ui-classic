@@ -311,7 +311,8 @@ module Mixins
                        :ems_controller                  => controller_name,
                        :default_auth_status             => default_auth_status,
                        :amqp_auth_status                => amqp_auth_status,
-                       :service_account_auth_status     => service_account_auth_status
+                       :service_account_auth_status     => service_account_auth_status,
+                       :config_fields                   => {:dummy_provider => ['tenant_id', 'subscription_id']}
       } if controller_name == "ems_cloud" || controller_name == "ems_network"
 
       render :json => { :name                          => @ems.name,
